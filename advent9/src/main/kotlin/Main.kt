@@ -1,8 +1,9 @@
 fun main() {
 
     val inputs = mutableMapOf<Int, List<String>>()
-    inputs[4] = object {}.javaClass.getResource("input${4}.txt")!!.readText().lines().filter { it.isNotEmpty() }
-    inputs[5] = object {}.javaClass.getResource("input${5}.txt")!!.readText().lines().filter { it.isNotEmpty() }
+    for (i in 1..5) {
+        inputs[i] = object {}.javaClass.getResource("input${i}.txt")!!.readText().lines().filter { it.isNotEmpty() }
+    }
     for (i in 9..12) {
         inputs[i] = object {}.javaClass.getResource("input${i}.txt")!!.readText().lines().filter { it.isNotEmpty() }
     }

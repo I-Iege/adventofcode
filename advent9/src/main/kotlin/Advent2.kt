@@ -1,12 +1,11 @@
-class Advent2 {
-    private val lines = this::class.java.getResource("advent2.txt")!!.readText().lines()
+class Advent2(private val lines : List<String>)  : IAdvent {
 
-    fun part1(): Int = lines
+    override fun part1(): Int = lines
         .map { it.split(" ") }
         .fold(mutableListOf(0, 0)) { acc, movement -> addMovement(acc, movement) }
         .reduce { acc, i -> acc * i }
 
-    fun part2(): Int = lines
+    override fun part2(): Int = lines
         .map { it.split(" ") }
         .fold(mutableListOf(0, 0, 0)) { acc, movement -> addMovement2(acc, movement) }
         .dropLast(1)

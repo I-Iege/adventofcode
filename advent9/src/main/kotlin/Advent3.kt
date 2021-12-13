@@ -1,10 +1,9 @@
 import kotlin.math.pow
 import kotlin.math.sign
 
-class Advent3 {
-    private val lines = this::class.java.getResource("advent3.txt")!!.readText().lines()
+class Advent3(private val lines : List<String>)  : IAdvent {
 
-    fun execute() {
+    override fun part1(): Number {
         val gamma = lines
             .map { it.toDigitList().map { ch -> if (ch == 1) ch else -1 } }
             .fold(List(lines[0].length) { 0 }) { acc, digit -> addAllDigits(acc, digit) }
@@ -12,19 +11,17 @@ class Advent3 {
             .map { if (it == -1) 0 else it }
 
         val epsilon = gamma.map { 1 - it }
-        val result = gamma.toDecimal() * epsilon.toDecimal()
-        println(result)
+        return gamma.toDecimal() * epsilon.toDecimal()
     }
 
-    fun execute2() {
+    override fun part2() : Number {
         val trie = Trie()
         trie += lines
-        println(trie.findMostCommon().toDecimal().toString() + " " + trie.findLeastCommon().toDecimal().toString())
+        return trie.findMostCommon().toDecimal() * trie.findLeastCommon().toDecimal()
     }
 
 
-    private fun addAllDigits(acc: List<Int>, current: List<Int>)
-        = acc.mapIndexed { index, s -> s + current[index] }
+    private fun addAllDigits(acc: List<Int>, current: List<Int>) = acc.mapIndexed { index, s -> s + current[index] }
 
 
     private fun String.toDigitList(): List<Int> {
