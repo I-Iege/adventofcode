@@ -1,4 +1,5 @@
 import org.junit.jupiter.api.Test
+import kotlin.test.assertEquals
 
 class TestAdvent11 {
 
@@ -6,7 +7,6 @@ class TestAdvent11 {
 
     @Test
     fun testPart1() {
-        val result = Advent11(lines).part1()
-        assert(result == 1656)
+        assertEquals(1656, Advent11(lines).part1())
     }
 }
