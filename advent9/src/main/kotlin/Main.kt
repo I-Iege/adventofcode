@@ -4,7 +4,7 @@ fun main() {
     for (i in 1..5) {
         inputs[i] = object {}.javaClass.getResource("input${i}.txt")!!.readText().lines().filter { it.isNotEmpty() }
     }
-    for (i in 9..12) {
+    for (i in 9..13) {
         inputs[i] = object {}.javaClass.getResource("input${i}.txt")!!.readText().lines().filter { it.isNotEmpty() }
     }
 
@@ -25,5 +25,8 @@ fun main() {
         println("advent ${ind + 9} part1: ${it.part1()}")
         println("advent ${ind + 9} part2: ${it.part2()}")
     }
+
+    println("advent 13 part1: ${Advent13(inputs[13]!!).part1()}")
+    println("advent 13 part2: ${Advent13(inputs[13]!!).part2()}")
 
 }
