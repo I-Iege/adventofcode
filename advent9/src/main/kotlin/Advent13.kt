@@ -45,8 +45,8 @@ class Advent13(lines: List<String>) : IAdvent {
     }
 
     private fun mark(points: List<Pair<Int, Int>>): List<List<Int>> {
-        val maxX = folds.first{it.first == 'x'}.second * 2 + 1
-        val maxY = folds.first{it.first == 'y'}.second * 2 + 1
+        val maxX = folds.first { it.first == 'x' }.second * 2 + 1
+        val maxY = folds.first { it.first == 'y' }.second * 2 + 1
         val paper = MutableList(maxX) { MutableList(maxY) { 0 } }
         points.forEach {
             paper[it.first][it.second] = 1
@@ -55,7 +55,13 @@ class Advent13(lines: List<String>) : IAdvent {
     }
 
     private fun printPaper(paper: List<List<Int>>) {
-        paper.map { it.map { it2 -> if (it2 == 1) '#' else "." } }.forEach { println(it.joinToString(" ")) }
-        println()
+        val newPaper = paper.map { it.map { it2 -> if (it2 == 1) '#' else " " } }
+        newPaper[0].forEachIndexed { index, _ ->
+            newPaper.forEach {
+                print(it[index])
+                print(" ")
+            }
+            println()
+        }
     }
 }

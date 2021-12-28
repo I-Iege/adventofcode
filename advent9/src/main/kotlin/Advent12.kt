@@ -1,5 +1,3 @@
-import kotlin.concurrent.fixedRateTimer
-
 class Advent12(lines: List<String>) : IAdvent {
     private val pairs = lines.map { it.split("-") }
 
@@ -47,8 +45,5 @@ class Advent12(lines: List<String>) : IAdvent {
         return listOf(currentRoute)
     }
 
-
     private fun String.isLowercase() = this == this.lowercase()
-
-
 }

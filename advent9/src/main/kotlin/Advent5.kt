@@ -1,7 +1,7 @@
 import java.lang.Integer.max
 import kotlin.math.abs
 
-class Advent5(private val lines: List<String>) : IAdvent {
+class Advent5(lines: List<String>) : IAdvent {
     private val endPoints: List<List<Pair<Int, Int>>> = lines.map { it.split(" -> ") }
         .map { listOf(it[0].split(","), it[1].split(",")).flatten() }
         .map { listOf(Pair(it[0].toInt(), it[1].toInt()), Pair(it[2].toInt(), it[3].toInt())) }

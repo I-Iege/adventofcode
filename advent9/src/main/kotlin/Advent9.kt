@@ -1,4 +1,4 @@
-class Advent9(private val lines: List<String>) : IAdvent {
+class Advent9(lines: List<String>) : IAdvent {
     private val matrix = lines.map { it.asSequence().map { ch -> ch.digitToInt() }.toList() }
 
     override fun part1() = basinPositions()

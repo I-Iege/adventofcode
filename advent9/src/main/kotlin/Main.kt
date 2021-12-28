@@ -1,7 +1,7 @@
 fun main() {
 
     val inputs = mutableMapOf<Int, List<String>>()
-    for (i in 1..5) {
+    for (i in 1..7) {
         inputs[i] = object {}.javaClass.getResource("input${i}.txt")!!.readText().lines().filter { it.isNotEmpty() }
     }
     for (i in 9..13) {
@@ -12,7 +12,8 @@ fun main() {
         Advent9(inputs[9]!!),
         Advent10(inputs[10]!!),
         Advent11(inputs[11]!!),
-        Advent12(inputs[12]!!)
+        Advent12(inputs[12]!!),
+        Advent13(inputs[13]!!)
     )
 
     println("advent 4 part1: ${Advent4(inputs[4]!!).part1()}")
@@ -20,13 +21,13 @@ fun main() {
 
     println("advent 5 part1: ${Advent5(inputs[5]!!).part1()}")
     println("advent 5 part2: ${Advent5(inputs[5]!!).part2()}")
+    println("advent 6 part1: ${Advent6(inputs[6]!!).part1()}")
+    println("advent 6 part2: ${Advent6(inputs[6]!!).part2()}")
+    println("advent 7 part1: ${Advent7(inputs[7]!!).part1()}")
+    println("advent 7 part2: ${Advent7(inputs[7]!!).part2()}")
 
     tasks.forEachIndexed { ind, it ->
         println("advent ${ind + 9} part1: ${it.part1()}")
         println("advent ${ind + 9} part2: ${it.part2()}")
     }
-
-    println("advent 13 part1: ${Advent13(inputs[13]!!).part1()}")
-    println("advent 13 part2: ${Advent13(inputs[13]!!).part2()}")
-
 }
