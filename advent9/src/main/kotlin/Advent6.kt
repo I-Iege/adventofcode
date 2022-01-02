@@ -9,8 +9,8 @@ class Advent6(lines: List<String>) : IAdvent {
     }
 
     private fun calculateFishForDay(day: Int): Long {
-        val map = List(9) { Pair(it, 0L) }
-            .toMap()
+        val map = List(9) { it }
+            .associateWith { 0L }
             .toMutableMap()
         numbers.forEach {
             map[it] = map[it]!!.inc()

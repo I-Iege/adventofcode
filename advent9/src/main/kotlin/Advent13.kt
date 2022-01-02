@@ -1,12 +1,12 @@
 class Advent13(lines: List<String>) : IAdvent {
     private val folds = lines.filter { it.contains("fold") }
         .map { it.split("=") }
-        .map { Pair(it[0].last(), it[1].toInt()) }
+        .map { it[0].last() to it[1].toInt() }
 
     private val paper = mark(lines
         .filter { it.contains(",") }
         .map { it.split(",") }
-        .map { Pair(it[0].toInt(), it[1].toInt()) }
+        .map { it[0].toInt() to it[1].toInt() }
     )
 
     override fun part1(): Number {
