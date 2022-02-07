@@ -1,8 +1,11 @@
 fun main() {
 
     val inputs = mutableMapOf<Int, List<String>>()
-    for (i in 1..14) {
-        inputs[i] = object {}.javaClass.getResource("input${i}.txt")!!.readText().lines().filter { it.isNotEmpty() }
+    for (i in 1..15) {
+        inputs[i] = object {}.javaClass.getResource("input$i.txt")!!
+            .readText()
+            .lines()
+            .filter { it.isNotEmpty() }
     }
 
     val tasks = listOf(
@@ -19,7 +22,8 @@ fun main() {
         Advent11(inputs[11]!!),
         Advent12(inputs[12]!!),
         Advent13(inputs[13]!!),
-        Advent14(inputs[14]!!)
+        Advent14(inputs[14]!!),
+        Advent15(inputs[15]!!)
     )
 
     tasks.forEachIndexed { ind, it ->

@@ -1,3 +1,6 @@
+
+typealias Point = Pair<Int, Int>
+
 class Advent9(lines: List<String>) : IAdvent {
     private val matrix = lines.map { it.asSequence().map { ch -> ch.digitToInt() }.toList() }
 
@@ -10,8 +13,8 @@ class Advent9(lines: List<String>) : IAdvent {
         .take(3)
         .reduce { acc, i -> acc * i }
 
-    private fun basinArea(basin: Pair<Int, Int>): Set<Pair<Int, Int>> {
-        val extended = mutableSetOf<Pair<Int, Int>>()
+    private fun basinArea(basin: Point): Set<Point> {
+        val extended = mutableSetOf<Point>()
         var toExtend = setOf(basin)
         while (toExtend.isNotEmpty()) {
             val currentExtension = toExtend
@@ -25,7 +28,7 @@ class Advent9(lines: List<String>) : IAdvent {
     }
 
 
-    private fun Pair<Int, Int>.neighbours(extended: Set<Pair<Int, Int>> = emptySet()): List<Pair<Int, Int>> {
+    private fun Pair<Int, Int>.neighbours(extended: Set<Pair<Int, Int>> = emptySet()): List<Point> {
         return listOf(
             Pair(this.first + 1, this.second),
             Pair(this.first, this.second + 1),
@@ -36,8 +39,8 @@ class Advent9(lines: List<String>) : IAdvent {
             .filter { it !in extended }
     }
 
-    private fun basinPositions(): List<Pair<Int, Int>> {
-        val result = mutableListOf<Pair<Int, Int>>()
+    private fun basinPositions(): List<Point> {
+        val result = mutableListOf<Point>()
         for (i in matrix.indices) {
             for (j in matrix[0].indices) {
                 if (isLowest(Pair(i, j))) {
@@ -48,8 +51,8 @@ class Advent9(lines: List<String>) : IAdvent {
         return result
     }
 
-    private operator fun List<List<Int>>.get(index: Pair<Int, Int>) = this[index.first][index.second]
+    private operator fun List<List<Int>>.get(index: Point) = this[index.first][index.second]
 
-    private fun isLowest(index: Pair<Int, Int>) = index.neighbours().all { matrix[index] < matrix[it] }
+    private fun isLowest(index: Point) = index.neighbours().all { matrix[index] < matrix[it] }
 
 }

@@ -58,7 +58,8 @@ class Advent14(lines: List<String>) : IAdvent {
                     element.second
                 else
                     accumulator!!.plus(element.second)
-            }.toMutableMap()
+            }
+            .toMutableMap()
 
         counts[input.first()] = counts[input.first()]!!.inc()
         return counts.maxOf { it.value } - counts.minOf { it.value }

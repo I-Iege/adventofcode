@@ -38,7 +38,7 @@ class Advent5(lines: List<String>) : IAdvent {
             abs(orderedList[1].second - orderedList[0].second)
         )
 
-        val divider = if(distance != 0) distance else 1
+        val divider = if (distance != 0) distance else 1
 
         val x = (orderedList[1].first - orderedList[0].first) / divider
         val y = (orderedList[1].second - orderedList[0].second) / divider

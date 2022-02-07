@@ -13,7 +13,6 @@ class Advent12(lines: List<String>) : IAdvent {
                 accumulator!!.plus(element[1]).toMutableList()
         }
 
-
     override fun part1(): Number {
         return addNode("start", listOf("start")) { false }.size
     }

@@ -17,8 +17,6 @@ class Advent10(private val lines: List<String>) : IAdvent {
         return result
     }
 
-
-
     private fun getErrors(line: String): Pair<Int, List<Char>> {
         val stack = mutableListOf<Char>()
         for (ch in line) {
@@ -31,14 +29,14 @@ class Advent10(private val lines: List<String>) : IAdvent {
 
     private fun Char.completeScore() =
         when (this) {
-                '(' -> 1
-                '[' -> 2
-                '{' -> 3
-                '<' -> 4
-                else -> 0
+            '(' -> 1
+            '[' -> 2
+            '{' -> 3
+            '<' -> 4
+            else -> 0
         }
 
-    private fun  Char.errorScore() =
+    private fun Char.errorScore() =
         when (this) {
             ')' -> 3
             ']' -> 57

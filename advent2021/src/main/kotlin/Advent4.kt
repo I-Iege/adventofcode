@@ -1,3 +1,5 @@
+typealias Board = MutableList<MutableList<Pair<Int, Boolean>>>
+
 class Advent4(private val lines: List<String>) : IAdvent {
     private val numbers = lines[0].split(",").filter { it.isNotEmpty() }.map { it.toInt() }
     private var boards = getBoards()
@@ -19,8 +21,8 @@ class Advent4(private val lines: List<String>) : IAdvent {
     override fun part2(): Number {
         var result = listOf<Int>()
         var i = 0
-        var board = mutableListOf<MutableList<Pair<Int, Boolean>>>()
-        var win : Boolean
+        var board = board()
+        var win: Boolean
         while (boards.isNotEmpty() && i < numbers.size) {
             win = false
             while (!win && i < numbers.size) {
@@ -33,7 +35,7 @@ class Advent4(private val lines: List<String>) : IAdvent {
             }
             if (win) {
                 board = boards.last()
-                boards.removeAll( result.map { boards[it] } )
+                boards.removeAll(result.map { boards[it] })
             }
         }
         return if (board.isNotEmpty()) {
@@ -43,11 +45,11 @@ class Advent4(private val lines: List<String>) : IAdvent {
         }
     }
 
-    private fun getBoards(): MutableList<MutableList<MutableList<Pair<Int, Boolean>>>> {
+    private fun getBoards(): MutableList<Board> {
         val strippedLines = lines.drop(1).filter { it.isNotEmpty() }
-        boards = mutableListOf<MutableList<MutableList<Pair<Int, Boolean>>>>()
+        boards = mutableListOf()
         for (i in 0 until strippedLines.size / 5) {
-            val board = mutableListOf<MutableList<Pair<Int, Boolean>>>()
+            val board = board()
             for (j in 0 until 5) {
                 val boardLine = mutableListOf<Pair<Int, Boolean>>()
                 boardLine += strippedLines[i * 5 + j].split(" ").filter { it.isNotEmpty() }
@@ -60,7 +62,7 @@ class Advent4(private val lines: List<String>) : IAdvent {
     }
 
     private fun markNumber(number: Int): List<Int> {
-        var win : Boolean
+        var win: Boolean
         var winList = mutableListOf<Int>()
         for (board in boards.indices) {
             var found = false
@@ -98,4 +100,5 @@ class Advent4(private val lines: List<String>) : IAdvent {
         return sum * number
     }
 
+   private fun board() = mutableListOf<MutableList<Pair<Int,Boolean>>>()
 }
