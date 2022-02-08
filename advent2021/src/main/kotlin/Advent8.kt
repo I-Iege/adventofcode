@@ -1,35 +1,67 @@
+typealias Code = Set<Char>
+
 class Advent8(lines: List<String>) : IAdvent {
     private val words = lines.map { it.substringBefore("|").split(" ") }
-    private val output = lines.map { it.substringAfter("|").split(" ") }
+        .map { it.map { it.toSet() } }
+    private val output = lines.map { it.substringAfter("|").split(" ").filter { it.isNotEmpty() } }
+        .map { it.map { it.toSet() } }
 
     override fun part1(): Number {
         return output.flatten()
-            .count { it.length in setOf(2, 3, 4, 7) } // 2 4 8 128
+            .count { it.size in setOf(2, 3, 4, 7) } // 1 7 4 8
     }
+
 
     override fun part2(): Number {
-       /* val line = mutableListOf<String>()
-        line += words[0]
-        line += output[0]
+        val intToCode = words.map {
+            it.filter { it.size in setOf(2, 3, 4, 7) }
+                .associate { Pair(toNumberByLength(it), it) }.toMutableMap()
 
-        val map = mutableMapOf<Int, String>()
-        line.forEach {
-            map
-        }*/
-        return 0
+        }
+
+        val codeToInt = intToCode.mapIndexed { index, map ->
+            mapOf(
+                map[1]!! to 1,
+                map[4]!! to 4,
+                map[7]!! to 7,
+                map[8]!! to 8,
+                find(3, words[index], 5) { it.intersect(map[1]!!).size == 2 },
+                find(2, words[index], 5) { map[8]!!.subtract(map[4]!!).intersect(it).size == 3 },
+                find(5, words[index], 5) { map[4]!!.subtract(map[1]!!).intersect(it).size == 2 },
+                find(6, words[index], 6) { it.intersect(map[1]!!).size == 1 },
+                find(0, words[index], 6) { it.intersect(map[4]!!).size == 3 && it.intersect(map[7]!!).size == 3 },
+                find(9, words[index], 6) { it.intersect(map[4]!!).size == 4 }
+            )
+        }
+
+        return output.mapIndexed { index, sets ->
+             sets.map { codeToInt[index][it]!! }
+         }.sumOf{ intsToNum(it) }
     }
 
-   /* fun codeToInt(code: Int): Int = when (code) {
-        119 -> 0
-        2 -> 1
-        93 -> 2
-        91 -> 3
-        8 -> 4
-        107-> 5
-        111-> 6
-        4 -> 7
-        128 -> 8
-        123 -> 9
-        else -> 0
-    }*/
+    private fun intsToNum(ints: List<Int>): Int = ints[0] * 1000 + ints[1] * 100 + ints[2] * 10 + ints[3]
+
+    private fun find(
+        number: Int,
+        words: List<Code>,
+        length: Int,
+        predicate: (Set<Char>) -> Boolean
+    ): Pair<Code, Int> {
+        return Pair(
+            words.filter { it.size == length }
+                .first(predicate),
+            number
+        )
+    }
+
+    private fun toNumberByLength(word: Code): Int {
+        return when (word.size) {
+            2 -> 1
+            3 -> 7
+            4 -> 4
+            7 -> 8
+            else -> 0
+        }
+    }
+
 }
