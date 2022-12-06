@@ -1,22 +1,29 @@
 typealias Code = Set<Char>
 
 class Advent8(lines: List<String>) : IAdvent {
-    private val words = lines.map { it.substringBefore("|").split(" ") }
-        .map { it.map { it.toSet() } }
-    private val output = lines.map { it.substringAfter("|").split(" ").filter { it.isNotEmpty() } }
-        .map { it.map { it.toSet() } }
+    private val simpleNumbers = setOf(2, 3, 4, 7)  // number of chars for 1 7 4 8 numbers
+
+    private val words = lines.map { line ->
+        line.substringBefore("|")
+            .split(" ")
+            .map { it.toSet() }
+    }
+    private val output = lines.map { line ->
+        line.substringAfter("|")
+            .split(" ")
+            .filter { it.isNotEmpty() }
+            .map { it.toSet() }
+    }
 
     override fun part1(): Number {
         return output.flatten()
-            .count { it.size in setOf(2, 3, 4, 7) } // 1 7 4 8
+            .count { it.size in simpleNumbers }
     }
 
-
     override fun part2(): Number {
-        val intToCode = words.map {
-            it.filter { it.size in setOf(2, 3, 4, 7) }
-                .associate { Pair(toNumberByLength(it), it) }.toMutableMap()
-
+        val intToCode = words.map { codeList ->
+            codeList.filter { it.size in simpleNumbers }
+                .associateBy { toNumberByLength(it) }
         }
 
         val codeToInt = intToCode.mapIndexed { index, map ->
@@ -29,14 +36,17 @@ class Advent8(lines: List<String>) : IAdvent {
                 find(2, words[index], 5) { map[8]!!.subtract(map[4]!!).intersect(it).size == 3 },
                 find(5, words[index], 5) { map[4]!!.subtract(map[1]!!).intersect(it).size == 2 },
                 find(6, words[index], 6) { it.intersect(map[1]!!).size == 1 },
-                find(0, words[index], 6) { it.intersect(map[4]!!).size == 3 && it.intersect(map[7]!!).size == 3 },
+                find(0, words[index], 6) {
+                    it.intersect(map[4]!!).size == 3
+                            && it.intersect(map[7]!!).size == 3
+                },
                 find(9, words[index], 6) { it.intersect(map[4]!!).size == 4 }
             )
         }
 
         return output.mapIndexed { index, sets ->
-             sets.map { codeToInt[index][it]!! }
-         }.sumOf{ intsToNum(it) }
+            sets.map { codeToInt[index][it]!! }
+        }.sumOf { intsToNum(it) }
     }
 
     private fun intsToNum(ints: List<Int>): Int = ints[0] * 1000 + ints[1] * 100 + ints[2] * 10 + ints[3]

@@ -9,8 +9,7 @@ class Advent5(lines: List<String>) : IAdvent {
     override fun part1(): Number {
         return endPoints
             .filter { it[0].first == it[1].first || it[0].second == it[1].second }
-            .map { it.allPoints().toList() }
-            .flatten()
+            .flatMap { it.allPoints().toList() }
             .groupingBy { it }
             .eachCount()
             .entries
@@ -19,8 +18,7 @@ class Advent5(lines: List<String>) : IAdvent {
 
     override fun part2(): Number {
         return endPoints
-            .map { it.allPoints().toList() }
-            .flatten()
+            .flatMap { it.allPoints().toList() }
             .groupingBy { it }
             .eachCount()
             .entries

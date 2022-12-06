@@ -38,8 +38,7 @@ class Advent12(lines: List<String>) : IAdvent {
                             || it !in currentRoute
                             || predicate(currentRoute)
                 }
-                .map { addNode(it, currentRoute.plus(it), predicate) }
-                .flatten()
+                .flatMap { addNode(it, currentRoute.plus(it), predicate) }
         }
         return listOf(currentRoute)
     }
