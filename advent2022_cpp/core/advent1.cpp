@@ -30,8 +30,10 @@ int lib::aoc2022_1_2(const string& filePath)
 
 int score(pair<char, char> round)
 {
+	//move value to 0,1,2 interval
 	round.second -= 88;
 	round.first += 23 - 88;
+
 	int score = round.second + 1;
 	if (round.first == round.second)
 	{
@@ -46,7 +48,9 @@ int score(pair<char, char> round)
 
 int score2(pair<char, char> round)
 {
+	//move value to 0,1,2 interval
 	round.first += 23 - 88;
+	
 	switch (round.second)
 	{
 	case 'Y':
