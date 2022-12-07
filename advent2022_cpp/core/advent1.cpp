@@ -43,6 +43,7 @@ int score(pair<char, char> round)
 	{
 		score += 6;
 	}
+
 	return score;
 }
 
@@ -50,18 +51,14 @@ int score2(pair<char, char> round)
 {
 	//move value to 0,1,2 interval
 	round.first += 23 - 88;
-	
-	switch (round.second)
-	{
-	case 'Y':
-		return 3 + round.first + 1;
-	case 'Z':
-		return 6 + ( ( round.first + 1) % 3) + 1;
-	case 'X':
-		return ((round.first + 2) % 3) + 1;
-	default:
-		return 0;
-	}
+	round.second -= 88;
+
+	// +2 mod 3 == loose
+	// +0 mod 3 == draw
+	// +1 mod 3 == win 
+	int moduloClass = (round.second + 2) % 3;
+
+	return round.second * 3 + ( (round.first + moduloClass) % 3) + 1;
 }
 
 int lib::aoc2022_2_1(const string& filePath)
