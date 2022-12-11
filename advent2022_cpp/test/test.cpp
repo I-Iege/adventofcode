@@ -18,4 +18,7 @@ TEST(TEST_AOC1, aoc1 ) {
     EXPECT_EQ(aoc2022_2_1(path.string() + "\\input\\input2_draw_test.txt"), 15);
     
     EXPECT_EQ(aoc2022_2_2(path.string() + "\\input\\input2_test.txt"), 12);
+
+    EXPECT_EQ(aoc2022_3_1(path.string() + "\\input\\input3_test.txt"), 157);
+    EXPECT_EQ(aoc2022_3_2(path.string() + "\\input\\input3_test.txt"), 70);
 }
